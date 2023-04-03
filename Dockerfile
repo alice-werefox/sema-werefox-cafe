@@ -1,6 +1,6 @@
 # Using Alpine to keep the images smaller
 # Change to using the official NodeJS Alpine container
-FROM node:16-alpine
+FROM node:18-alpine
 
 # Pushing all files into image
 WORKDIR /app

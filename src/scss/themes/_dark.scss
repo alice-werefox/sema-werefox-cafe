@@ -1,6 +1,5 @@
 :root {
   $deemphasized-color: lighten($main-bg-color, 54%);
-
   --button-bg: #{lighten($main-bg-color, 6%)};
   --button-text: #{$main-text-color};
   --button-border: #{lighten($border-color, 6%)};

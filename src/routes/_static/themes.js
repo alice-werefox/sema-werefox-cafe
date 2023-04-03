@@ -100,6 +100,24 @@ const themes = [
     label: 'intl.themeDarkGrayscale',
     dark: true,
     color: '#666'
+  },
+  {
+    name:  'werefox',
+    label: 'Werefox',
+    dark: true,
+    color: '#75B1FF'
+  },
+  {
+    name: 'ada-werefox',
+    label: 'Ada Werefox',
+    dark: true,
+    color: '#50FFFF'
+  },
+  {
+    name: 'alice-werefox',
+    label: 'Alice Werefox',
+    dark: true,
+    color: '#FF8F94'
   }
 ]
 
