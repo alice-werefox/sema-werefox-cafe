@@ -12,6 +12,7 @@ export default [
   { id: 'fa-star', src: 'src/thirdparty/font-awesome-svg-png/white/svg/star.svg' },
   { id: 'fa-star-o', src: 'src/thirdparty/font-awesome-svg-png/white/svg/star-o.svg' },
   { id: 'fa-ellipsis-h', src: 'src/thirdparty/font-awesome-svg-png/white/svg/ellipsis-h.svg' },
+  { id: 'fa-ellipsis-v', src: 'src/thirdparty/font-awesome-svg-png/white/svg/ellipsis-v.svg' },
   { id: 'fa-spinner', src: 'src/thirdparty/font-awesome-svg-png/white/svg/spinner.svg' },
   { id: 'fa-user', src: 'src/thirdparty/font-awesome-svg-png/white/svg/user.svg' },
   { id: 'fa-play-circle', src: 'src/thirdparty/font-awesome-svg-png/white/svg/play-circle.svg' },

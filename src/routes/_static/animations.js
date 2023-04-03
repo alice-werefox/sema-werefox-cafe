@@ -28,10 +28,6 @@ export const FAVORITE_ANIMATION = [
 
 export const REBLOG_ANIMATION = FAVORITE_ANIMATION
 
-export const FOLLOW_BUTTON_ANIMATION = [
-  growBigThenSmall
-]
-
 export const CHECKMARK_ANIMATION = [
   fadeColorToPressedState
 ]

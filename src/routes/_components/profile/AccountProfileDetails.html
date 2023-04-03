@@ -1,11 +1,11 @@
 <h2 class="sr-only">{intl.statisticsAndMoreOptions}</h2>
 <div class="account-profile-details">
   <div class="account-profile-details-item">
-    <span class="account-profile-details-item-title">
-      {intl.statuses}
-    </span>
     <span class="account-profile-details-item-datum">
       {numStatusesDisplay}
+    </span>
+    <span class="account-profile-details-item-title">
+      {intl.statuses}
     </span>
   </div>
   <a class="account-profile-details-item"
@@ -13,11 +13,11 @@
      aria-label={followingLabel}
      rel="prefetch"
   >
-    <span class="account-profile-details-item-title">
-      {intl.follows}
-    </span>
     <span class="account-profile-details-item-datum">
       {numFollowingDisplay}
+    </span>
+    <span class="account-profile-details-item-title">
+      {intl.follows}
     </span>
   </a>
   <a class="account-profile-details-item"
@@ -25,65 +25,43 @@
      aria-label={followersLabel}
      rel="prefetch"
   >
-    <span class="account-profile-details-item-title">
-      {intl.followers}
-    </span>
     <span class="account-profile-details-item-datum">
       {numFollowersDisplay}
     </span>
+    <span class="account-profile-details-item-title">
+      {intl.followers}
+    </span>
   </a>
-  <!-- TODO: re-enable this when we support profile editing -->
-  {#if account && verifyCredentials && account.id !== verifyCredentials.id}
-    <div class="account-profile-more-options">
-      <IconButton
-        label="{intl.moreOptions}"
-        href="#fa-bars"
-        muted="true"
-        on:click="onMoreOptionsClick()"
-      />
-    </div>
-  {/if}
 </div>
 <style>
   .account-profile-details {
     grid-area: details;
-    display: grid;
-    margin: 0 5px;
-    align-items: center;
-    grid-template-columns: 1fr 1fr 1fr min-content;
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
   }
 
   .account-profile-details-item {
     display: flex;
     flex-direction: row;
-    padding: 5px;
     justify-content: center;
     font-size: 1.1em;
-  }
-
-  .account-profile-details-item:hover {
-    text-decoration: none;
-    background: var(--button-bg-hover);
-    cursor: pointer;
-  }
-
-  .account-profile-details-item:active {
-    background: var(--button-bg-active);
-  }
-
-  .account-profile-details-item-title {
-    text-transform: uppercase;
-    color: var(--deemphasized-text-color);
-    margin-right: 5px;
+    padding: 10px 0;
   }
 
   .account-profile-details-item-datum {
-    color: var(--body-text-color);
-    margin-left: 5px;
+    margin-right: 5px;
     font-weight: 600;
   }
 
-  @media (max-width: 767px) {
+  .account-profile-details-item:not(:hover):not(:focus) .account-profile-details-item-datum {
+    color: var(--body-text-color);
+  }
+
+  @media (max-width: 374px) {
+    .account-profile-details {
+      margin-bottom: 0;
+    }
     .account-profile-details-item {
       flex-direction: column;
       margin-left: 5px;
@@ -110,20 +88,8 @@
       font-size: 1em;
     }
   }
-
-  @media (max-width: 240px) {
-    .account-profile-details {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    .account-profile-more-options {
-      justify-self: flex-end;
-      grid-column: 1 / 4;
-    }
-  }
 </style>
 <script>
-  import IconButton from '../IconButton.html'
-  import { importShowAccountProfileOptionsDialog } from '../dialog/asyncDialogs/importShowAccountProfileOptionsDialog.js'
   import { LOCALE } from '../../_static/intl.js'
   import { formatIntl } from '../../_utils/formatIntl.js'
   import { thunk } from '../../_utils/thunk.js'
@@ -149,16 +115,6 @@
       followingLabel: ({ numFollowing }) => (
         formatIntl('intl.followingLabel', { count: numFollowing })
       )
-    },
-    methods: {
-      async onMoreOptionsClick () {
-        const { account, relationship, verifyCredentials } = this.get()
-        const showAccountProfileOptionsDialog = await importShowAccountProfileOptionsDialog()
-        showAccountProfileOptionsDialog(account, relationship, verifyCredentials)
-      }
-    },
-    components: {
-      IconButton
     }
   }
 </script>

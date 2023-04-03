@@ -14,7 +14,9 @@
   --button-bg-hover: #{darken($main-bg-color, 5%)};
 
   --input-border: #{$border-color};
+  --input-border-radius-size: 4px;
   --input-bg: #{$main-bg-color};
+  --input-placeholder-color: #{$deemphasized-color};
   --anchor-text: #{$anchor-color};
   --main-bg: #{$main-bg-color};
   --body-bg: #{$body-bg-color};
@@ -75,7 +77,7 @@
   --mask-opaque-bg: #{rgba($toast-bg, 0.8)};
   --loading-bg: #{#ededed};
 
-  --account-profile-bg-backdrop-filter: #{rgba($main-bg-color, 0.7)};
+  --account-profile-bg-backdrop-filter: #{rgba($main-bg-color, 0.85)};
   --account-profile-bg: #{rgba($main-bg-color, 0.9)};
 
   --deemphasized-text-color: #{$deemphasized-color};
@@ -131,6 +133,9 @@
   --blurhash-sensitive-text-color: #{lighten($deemphasized-color, 40%)};
 
   --focus-bg: #{rgba(0, 0, 0, 0.1)};
+
+  --verified-text-color: #00703C;
+  --verified-bg-color: #E1EFE8;
 
   accent-color: #{$main-theme-color};
   color-scheme: light;

@@ -7,20 +7,15 @@
   </button>
 </div>
 <div class="account-profile-name">
-  <ExternalLink
-    className="account-profile-name-link focus-fix"
-    href={account.url}
-    showIcon="true"
-    normalIconColor="true"
-    ariaLabel={externalLinkLabel}>
-    <AccountDisplayName {account} />
-  </ExternalLink>
+  <AccountDisplayName {account} />
 </div>
 {#if label}
   <Label {label} className="account-profile-label" />
 {/if}
 <div class="account-profile-username">
-  {'@' + account.acct}
+  <ExternalLink className="focus-fix" href={account.url}>
+    {'@' + account.acct}
+  </ExternalLink>
 </div>
 <div class="account-profile-followed-by">
   {#if relationship && relationship.blocking}
@@ -46,10 +41,10 @@
     white-space: nowrap;
   }
   .account-profile-followed-by-span {
-    background: rgba(30, 30, 30, 0.2);
-    border-radius: 4px;
-    padding: 3px 5px;
     white-space: nowrap;
+    padding: 3px 6px;
+    border: 1px solid;
+    border-radius: 4px;
   }
   .account-profile-avatar {
     grid-area: avatar;
@@ -62,6 +57,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     align-self: center;
+    font-size: 1.2em;
   }
 
   .account-profile-name {
@@ -107,12 +103,9 @@
 
   @media (max-width: 767px) {
     .account-profile-name {
-      font-size: 1.3em;
+      align-self: flex-end;
     }
     .account-profile-username {
-      font-size: 1.1em;
-    }
-    .account-profile-name, .account-profile-username {
       align-self: flex-start;
     }
   }

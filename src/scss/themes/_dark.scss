@@ -1,5 +1,12 @@
 :root {
   $deemphasized-color: lighten($main-bg-color, 54%);
+  --button-bg: #{lighten($main-bg-color, 6%)};
+  --button-text: #{$main-text-color};
+  --button-border: #{lighten($border-color, 6%)};
+  --button-bg-active: #{lighten($main-bg-color, 0%)};
+  --button-bg-hover: #{lighten($main-bg-color, 3%)};
+
+  --input-placeholder-color: #{$deemphasized-color};
 
   --action-button-deemphasized-fill-color: #{$deemphasized-color};
   --action-button-deemphasized-fill-color-hover: #{lighten($deemphasized-color, 22%)};
@@ -52,6 +59,10 @@
   --blurhash-sensitive-text-color: #{lighten($deemphasized-color, 15%)};
 
   --focus-bg: #{rgba(255, 255, 255, 0.1)};
+
+  --verified-text-color: #1CA665;
+  --verified-bg-color: #172B29;
+  --verified-border-color: #104c34;
 
   color-scheme: dark;
 }

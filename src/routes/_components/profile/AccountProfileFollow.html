@@ -6,17 +6,19 @@
      - If a follow is requested, then the button is pressed but shows as "follow requested" with
        a different icon.
   -->
-  <IconButton
-    className="account-profile-follow-icon-button"
-    {label}
-    {pressedLabel}
-    {href}
-    {pressable}
-    {pressed}
-    big={!$isVeryTinyMobileSize}
-    on:click="onFollowButtonClick(event)"
-    ref:icon
-  />
+  <button class="account-profile-follow-button" on:click="onFollowButtonClick(event)">
+    {pressed ? pressedLabel : label}
+  </button>
+  <!-- TODO: re-enable this when we support profile editing -->
+  {#if account && verifyCredentials && account.id !== verifyCredentials.id}
+    <IconButton
+      className="account-profile-more-options-button"
+      label="{intl.moreOptions}"
+      href="#fa-ellipsis-v"
+      muted="true"
+      on:click="onMoreOptionsClick()"
+    />
+  {/if}
 </div>
 <style>
   .account-profile-follow {
@@ -25,25 +27,41 @@
     display: none;
   }
   .account-profile-follow.shown {
-    display: block;
+    display: flex;
+    gap: 5px;
   }
 
-  @media (max-width: 240px) {
-    .account-profile-follow {
-      justify-self: flex-end;
-    }
+  :global(.account-profile-more-options-button),
+  .account-profile-follow-button {
+    padding: 10px;
+    font-size: 1.1em;
+  }
+
+  :global(.icon-button.icon-button.account-profile-more-options-button) {
+    border: 1px solid var(--button-border);
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .account-profile-follow-button {
+    min-width: 10ch;
   }
 </style>
 <script>
-  import IconButton from '../IconButton.html'
-  import { FOLLOW_BUTTON_ANIMATION } from '../../_static/animations.js'
   import { store } from '../../_store/store.js'
+  import IconButton from '../IconButton.html'
+  import { importShowAccountProfileOptionsDialog } from '../dialog/asyncDialogs/importShowAccountProfileOptionsDialog.js'
   import { setAccountFollowed } from '../../_actions/follow.js'
   import { setAccountBlocked } from '../../_actions/block.js'
   import { formatIntl } from '../../_utils/formatIntl.js'
 
   export default {
     methods: {
+      async onMoreOptionsClick () {
+        const { account, relationship, verifyCredentials } = this.get()
+        const showAccountProfileOptionsDialog = await importShowAccountProfileOptionsDialog()
+        showAccountProfileOptionsDialog(account, relationship, verifyCredentials)
+      },
       oncreate () {
         if (process.browser) {
           window.__button = this
@@ -65,9 +83,6 @@
           const newFollowingValue = !(following || followRequested)
           if (!account.locked) { // be optimistic, show the user that it succeeded
             this.set({ overrideFollowing: newFollowingValue })
-          }
-          if (newFollowingValue) {
-            this.refs.icon.animate(FOLLOW_BUTTON_ANIMATION)
           }
           await setAccountFollowed(accountId, newFollowingValue)
         }
@@ -98,17 +113,6 @@
       },
       pressedLabel: ({ requested }) => {
         return formatIntl('intl.unfollowLabel', { requested })
-      },
-      href: ({ blocking, following, followRequested }) => {
-        if (blocking) {
-          return '#fa-unlock'
-        } else if (following) {
-          return '#fa-user-times'
-        } else if (followRequested) {
-          return '#fa-hourglass'
-        } else {
-          return '#fa-user-plus'
-        }
       },
       shown: ({ verifyCredentials, relationship }) => (
         verifyCredentials && relationship && verifyCredentials.id !== relationship.id

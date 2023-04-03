@@ -5,6 +5,11 @@
 <div class={className}
      style="background-image: url({headerImage});"
      ref:accountProfile>
+  {#if !headerImageIsMissing}
+    <div class="account-profile-banner">
+      <img class="account-profile-banner-image" src={headerImage} alt=""/>
+    </div>
+  {/if}
   <div class="account-profile-grid-wrapper">
     <div class="account-profile-grid">
       <AccountProfileHeader {account} {relationship} {verifyCredentials} />
@@ -21,7 +26,6 @@
     position: relative;
     background-size: cover;
     background-position: center;
-    padding-top: 175px;
   }
 
   .account-profile.moved {
@@ -29,7 +33,6 @@
   }
 
   .account-profile.header-image-is-missing {
-    padding-top: 0;
     background-color: #ccc;
   }
 
@@ -37,20 +40,21 @@
     display: grid;
     grid-template-areas: "avatar     name        label     followed-by   follow"
                          "avatar     username    username  username      follow"
-                         "avatar     note        note      note          follow"
+                         "avatar     note        note      note          note"
                          "meta       meta        meta      meta          meta"
                          "details    details     details   details       details";
     grid-template-columns: min-content auto 1fr 1fr min-content;
-    grid-column-gap: 10px;
-    grid-row-gap: 5px;
+    grid-column-gap: 15px;
     padding: 20px;
+    padding-bottom: 0;
     justify-content: center;
+    border-bottom: var(--main-border-size) solid var(--main-border);
   }
 
   @supports (-webkit-backdrop-filter: blur(1px) saturate(1%)) or (backdrop-filter: blur(1px) saturate(1%)) {
     :global(.account-profile-grid-wrapper) {
-      -webkit-backdrop-filter: blur(7px) saturate(110%);
-      backdrop-filter: blur(7px) saturate(110%);
+      -webkit-backdrop-filter: blur(20px) saturate(110%);
+      backdrop-filter: blur(20px) saturate(110%);
       background-color: var(--account-profile-bg-backdrop-filter);
     }
   }
@@ -62,10 +66,6 @@
   }
 
   @media (max-width: 767px) {
-    .account-profile {
-      padding-top: 100px;
-    }
-
     .account-profile-grid {
       display: grid;
       grid-template-areas: "avatar     name          follow"
@@ -78,32 +78,31 @@
       grid-template-columns: min-content minmax(auto, 1fr) min-content;
       grid-template-rows: min-content min-content 1fr min-content;
       padding: 10px;
+      padding-bottom: 0;
     }
   }
 
-  @media (max-width: 320px) {
-    .account-profile {
-      padding-top: 50px;
-    }
-  }
-
-  @media (max-width: 240px) {
-    .account-profile {
-      padding-top: 0;
-    }
+  @media (max-width: 400px) {
     .account-profile-grid {
-      grid-template-areas: "avatar      name"
-                           "avatar      label"
-                           "username    username"
-                           "followed-by followed-by"
-                           "follow      follow"
-                           "note        note"
-                           "meta        meta"
-                           "details     details";
-      grid-template-columns: min-content 1fr;
-      grid-column-gap: 5px;
-      grid-row-gap: 0;
+      grid-template-areas: "avatar      name name label"
+                           "avatar      username username username"
+                           "followed-by followed-by follow follow"
+                           "note        note note note"
+                           "meta        meta meta meta"
+                           "details     details details details";
+      grid-template-columns: min-content 1fr min-content min-content;
     }
+  }
+
+  .account-profile-banner {
+    aspect-ratio: 3/1;
+    background-color: var(--body-bg);
+  }
+  .account-profile-banner-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 </style>
 <script>

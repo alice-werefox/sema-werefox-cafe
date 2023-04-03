@@ -1,7 +1,6 @@
 {#if massagedFields.length}
   <h2 class="sr-only">{intl.fields}</h2>
   <div class="account-profile-meta">
-    <div class="account-profile-meta-border"></div>
     {#each massagedFields as field, i}
       <div
         id="account-profile-meta-name-{i}"
@@ -11,72 +10,67 @@
         {field.name}
       </div>
       <div
-        class="account-profile-meta-cell account-profile-meta-value"
+        class="account-profile-meta-cell account-profile-meta-value {field.verified ? 'account-profile-meta-cell-verified' : ''}"
         role="definition"
         aria-labelledby="account-profile-meta-name-{i}"
       >
         {@html field.value}
-      </div>
-      <div class="account-profile-meta-cell account-profile-meta-verified">
         {#if field.verified}
-          <SvgIcon className="account-profile-meta-verified-svg" href="#fa-check" />
+          <span class="account-profile-meta-verified">
+            <SvgIcon
+              ariaLabel="verified"
+              className="account-profile-meta-verified-svg"
+              href="#fa-check"
+            />
+            {intl.verified}
+          </span>
         {/if}
       </div>
     {/each}
-    <div class="account-profile-meta-border"></div>
   </div>
 {/if}
 <style>
   .account-profile-meta {
     grid-area: meta;
     display: grid;
-    grid-template-columns: auto 1fr max-content;
-    grid-row-gap: 5px;
+    grid-template-columns: auto 1fr;
+    grid-row-gap: 0;
     align-items: center;
     padding: 10px 0;
-  }
-
-  .account-profile-meta-border {
-    height: 1px;
-    width: 100%;
-    grid-column: 1 / 4;
-    background: var(--main-border);
-    justify-self: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-top: 1px solid var(--main-border);
+    border-bottom: 1px solid var(--main-border);
   }
 
   .account-profile-meta-cell {
+    padding: 4px 0;
     word-wrap: break-word;
     overflow: hidden;
-    white-space: pre-wrap;
-    text-overflow: ellipsis;
     font-size: 1.1em;
   }
 
-  :global(.account-profile-meta-verified-svg) {
-    width: 24px;
-    height: 24px;
-    fill: var(--svg-fill);
-  }
-
   .account-profile-meta-name {
-    padding: 10px 20px 10px 0;
-    text-transform: uppercase;
     color: var(--deemphasized-text-color);
     position: relative;
     max-width: 300px;
+    padding-right: 15px;
   }
 
   .account-profile-meta-name:after {
     content: '';
     position: absolute;
+    top: 0;
+    bottom: 0;
     right: 0;
-    top: 15%;
-    height: 70%;
-    border-right: 1px solid var(--main-border);
+    margin: auto;
+    height: 60%;
+    border-right: 1px solid;
+    opacity: 0.2;
   }
 
   .account-profile-meta-value {
-    padding: 10px 10px 10px 20px;
+    padding-left: 15px;
   }
 
   :global(.underline-links .account-profile-meta a) {
@@ -87,9 +81,6 @@
     .account-profile-meta {
       padding: 5px 0;
     }
-    .account-profile-meta-cell {
-      font-size: 1em;
-    }
     .account-profile-meta-name {
       padding: 5px 10px 5px 0;
       max-width: 40vw;
@@ -97,6 +88,35 @@
     .account-profile-meta-value {
       padding: 5px 10px 5px 10px;
     }
+  }
+
+  .account-profile-meta-cell-verified {
+    display: inline-flex;
+    flex-wrap: wrap;
+    column-gap: 0.8em;
+  }
+  .account-profile-meta-verified {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    gap: 0.2em;
+    padding: 2px 0;
+    padding-left: 4px;
+    padding-right: 5px;
+    font-size: 0.9em;
+    color: var(--verified-text-color);
+    background: var(--verified-bg-color);
+    border: 1px solid var(--verified-border-color, currentColor);
+    border-radius: 4px;
+  }
+
+  :global(.account-profile-meta-verified-svg) {
+    display: inline-block;
+    width: .9em;
+    height: .9em;
+    fill: currentColor;
+    opacity: 0.95;
   }
 </style>
 <script>
