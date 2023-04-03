@@ -1,0 +1,28 @@
+$main-theme-color: #424242;
+$body-bg-color: #121212;
+$main-bg-color: #242424;
+$anchor-color: #d9e1e8;
+$main-text-color: #cccccc;
+$border-color: #75B1FF;
+$secondary-text-color: #75B1FF;
+$toast-border: #FF84CA;
+$toast-bg: lighten($body-bg-color, 4%);
+$focus-outline: darken(#FF84CA, 10%);
+$compose-background: darken(#FF84CA, 12%);
+
+@import "_base.scss";
+@import "_dark.scss";
+@import "_dark_scrollbars.scss";
+
+:root {
+  --settings-list-item-text: #{$main-text-color};
+  --settings-list-item-text-hover: #{$secondary-text-color};
+
+  --compose-button-halo: transparent;
+  --button-primary-bg: #424242;
+  --button-primary-bg-hover: #121212;
+  --button-primary-border: transparent;
+
+  --action-button-fill-color-pressed: #0052B8;
+  --action-button-fill-color-pressed-hover: #00377A;
+}
